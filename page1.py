@@ -33,7 +33,7 @@ try:
           create_table = """CREATE TABLE mydata (
                ID SERIAL PRIMARY KEY,
                TITLE VARCHAR(255) default NULL, COL_A VARCHAR(255) NOT NULL , COL_b VARCHAR(255) NOT NULL,
-               TEXT1 VARCHAR NOT NULL,TEXT2 VARCHAR NOT NULL,
+               TEXT1 VARCHAR(2000) NOT NULL,TEXT2 VARCHAR(2000) NOT NULL,
                IMG_LOCATION VARCHAR(255) NOT NULL, IMG_TYPE VARCHAR(255) NOT NULL,
                AUDIO_LOCATION VARCHAR(255) NOT NULL, AUDIO_TYPE VARCHAR(255) NOT NULL
                ,CREATED_AT TIMESTAMP  DEFAULT current_timestamp
@@ -110,20 +110,10 @@ st.write('You selected:', colb)
 
 #----------------------------------------------------
 
-text1 = st.text_area('Text 1', '''
-     
-
-
-
-     ''')
+text1 = st.text_area('Text 1', '''''')
 st.write('You entered:', text1)
 
-text2 = st.text_area('Text 2', '''
-
-
-
-
-     ''')
+text2 = st.text_area('Text 2', '''''')
 st.write('You entered:', text2)
 
 
