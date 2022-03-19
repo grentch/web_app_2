@@ -7,15 +7,10 @@ filter1 = st.multiselect(
      ['option1', 'option2','option3'],
 )
 
-st.write('You selected:', filter1)
-
 filter2 = st.multiselect(
      'Col B',
      ['option1', 'option2','option3'],
      )
-
-st.write('You selected:',filter2)
-
 
 
 

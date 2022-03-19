@@ -78,7 +78,7 @@ try:
      cur.execute(query1)
      result1 = cur.fetchall()
 
-      #get values for column b
+     #get values for column b
      query2 = """select col_b from mydata;"""
      cur.execute(query2)
      result2 = cur.fetchall()
