@@ -128,13 +128,6 @@ st.write('You entered:', text2)
 
 
 #-----------------------------------------
-#save file function
-def save_uploaded_image(uploadedfile):
-     with open(os.path.join("img",uploadedfile.name),"wb") as f:
-          f.write(uploadedfile.getbuffer())
-     return st.success("Saved file :{} in img".format(uploadedfile.name))
-
-
 
 
 imglocation = st.file_uploader("Upload a file", type=(["apng","avif","gif","jpg","jpeg","jfif","pjpeg","pjp","png","svg","webp"]))
@@ -146,22 +139,13 @@ if imglocation is not None:
      #store in database
      imgloc=str(imglocation.name)
      imgtype=imglocation.type
-     #imgtype=imgloc.rsplit('.', 1)[-1]
-
-     #store in local drive
-     save_uploaded_image(imglocation)
+    
+    
 else:
      path_in = None
 
 
 #--------------------------------------
-
-def save_uploaded_audio(uploadedfile):
-     with open(os.path.join("audio",uploadedfile.name),"wb") as f:
-          f.write(uploadedfile.getbuffer())
-     return st.success("Saved file :{} in audio".format(uploadedfile.name))
-
-
 
 
 audio_path = st.file_uploader("Upload a file", type=(["audio","ogg","M4A","FLAC","MP3","MP4","WAV","WMA","AAC"]))
@@ -174,10 +158,7 @@ if audio_path is not None:
      #save to databse
      alocation=str(audio_path.name)
      atype=audio_path.type
-     #atype=alocation.rsplit('.', 1)[-1]
-
-     #save to local drive
-     save_uploaded_audio(audio_path)
+     
 else:
      path_in = None
 
@@ -203,13 +184,41 @@ if st.button('Add'):
           cur.execute(insert_query,record_to_insert)
           #commit the changes
           conn.commit()
+          #message of insert successsfully
+          st.write("Successfully inserted to database")
           #close cursor
           cur.close()
           conn.close()
 
 
           
-          
+          def save_uploaded_image(uploadedfile):
+               with open(os.path.join("img",uploadedfile.name),"wb") as f:
+                    f.write(uploadedfile.getbuffer())
+               return st.success("Saved file :{} in img folder".format(uploadedfile.name))
+
+          def save_uploaded_audio(uploadedfile):
+               with open(os.path.join("audio",uploadedfile.name),"wb") as f:
+                    f.write(uploadedfile.getbuffer())
+               return st.success("Saved file :{} in audio folder".format(uploadedfile.name))
+
+          #store image in local drice
+          if imglocation is not None:
+               #store in local drive
+               save_uploaded_image(imglocation)
+          else:
+               path_in = None
+
+          #store audio in local drice
+          if audio_path is not None:
+               #save to local drive
+               save_uploaded_audio(audio_path)
+          else:
+               path_in = None
+
+
+
+
      
      except (Exception, psycopg2.DatabaseError) as error:
                st.write(error)
