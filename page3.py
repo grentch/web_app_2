@@ -1,6 +1,5 @@
 import streamlit as st
 import psycopg2
-from waiting import wait
 
 
 filter1 = st.multiselect(
