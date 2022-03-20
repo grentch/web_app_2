@@ -1,5 +1,6 @@
 import streamlit as st
 import psycopg2
+from waiting import wait
 
 
 filter1 = st.multiselect(
@@ -33,7 +34,7 @@ try:
 
     
     filter3 = st.multiselect(
-        'Image type',
+        'Image Type',
         f3,
         )
 
@@ -47,8 +48,6 @@ try:
 
     #show data to the screen
     if data:
-        st.write("Data found:")
-        st.write("Click next to view one by one result")
         all=[]
         for i in data: 
             l=[]
@@ -56,11 +55,30 @@ try:
                 l.append(j)
             all.append(l)
 
+        
 
+       
+            
+        
         while(itrt < len(data)):
-            st.write(all[itrt])
-            #update last updated time in record
-            btn="Update"+"_"+str(itrt+1)
+            
+            st.write("----------------------------------------------------------------------------------")
+            #st.write(all[itrt])
+            for r in range(1):
+                    table = "<html>"
+                    table += "<table>\n"
+                    table +="<tr>\n"
+                    for i in all[itrt]:
+                        table += "<td>{0}</td>\n".format(i)
+                    table += "</tr>\n"
+            table += "</table>"
+            table += "</html>"
+            st.write(table, unsafe_allow_html=True )
+
+
+
+            #update last updated time in record   
+            btn="Update"+"-->"+str(itrt+1)
             if st.button(btn):
                 #update last_modified
                 query2 = """update mydata set col_a=%s where id=%s;"""
@@ -72,23 +90,8 @@ try:
                 st.write(" updated "+str(itrt+1))
             else:
                 st.write('Click to Update')
-
-                
             itrt=itrt+1
-            #next button 
-            # bt="Next"+"_"+str(itrt+2)
-            # if st.button(bt):
-            #     itrt=itrt+1
-            # else:
-            #     st.write('Click to Next Record')
-
-            
-
-
-       
-
-
-
+        
     else:
         st.write("No data found to show ")
 
